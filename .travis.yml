@@ -9,11 +9,15 @@ install:
 before_script:
   - export PATH="$PATH:$HOME/.cargo/bin"
 
+stages:
+    - build
+    - test
+
 jobs:
     include:
         - stage: "Build"
           script: cargo build --release
         - stage: "Test"
           script: cargo test --release
-          script: ./scripts/autobahn-client.sh
-          script: ./scripts/autobahn-server.sh
+        - script: ./scripts/autobahn-client.sh
+        - script: ./scripts/autobahn-server.sh
